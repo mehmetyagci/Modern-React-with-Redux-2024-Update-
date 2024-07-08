@@ -19,7 +19,7 @@ function App() {
     setBooks(updatedBooks);
   };
 
-  const deletedBookById = (id) => {
+  const deleteBookById = (id) => {
     console.log("Need to delete book with id:");
     const updatedBooks = books.filter((book) => {
       return book.id !== id;
@@ -42,10 +42,11 @@ function App() {
 
   return (
     <div className="app">
+      <h1>Reading List</h1>
       <BookList
         books={books}
         onEdit={editBookById}
-        onDelete={deletedBookById}
+        onDelete={deleteBookById}
       />
       <BookCreate onCreate={createBook} />
     </div>
