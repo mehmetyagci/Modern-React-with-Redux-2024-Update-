@@ -8,22 +8,22 @@ import BookList from "./components/BookList";
 function App() {
   const [books, setBooks] = useState([]);
 
-  useEffect(() => {
-    fetchBooks();
-  }, []);
-
   const fetchBooks = async () => {
     const response = await axios.get("http://localhost:3001/books");
 
     setBooks(response.data);
   };
 
+  useEffect(() => {
+    fetchBooks();
+  }, []);
+
   const editBookById = async (id, newTitle) => {
     console.log("Need to edit book with id:", id);
 
-    const response = await axios.put(`http://localhost:3001/books/${id}`, { title: newTitle });
-
-    console.log(response);
+    const response = await axios.put(`http://localhost:3001/books/${id}`, {
+      title: newTitle,
+    });
 
     const updatedBooks = books.map((book) => {
       if (book.id === id) {
@@ -40,7 +40,7 @@ function App() {
     console.log("Need to delete book with id:", id);
 
     await axios.delete(`http://localhost:3001/books/${id}`);
-    
+
     const updatedBooks = books.filter((book) => {
       return book.id !== id;
     });
@@ -51,7 +51,9 @@ function App() {
   const createBook = async (title) => {
     console.log("Need to add book with:", title);
 
-    const response = await axios.post("http://localhost:3001/books", { title });
+    const response = await axios.post("http://localhost:3001/books", {
+      title,
+    });
 
     const updatedBooks = [...books, response.data];
     setBooks(updatedBooks);
@@ -60,7 +62,7 @@ function App() {
   return (
     <div className="app">
       <h1>Reading List</h1>
-      <BookList books={books} onEdit={editBookById} onDelete={deleteBookById} />
+      <BookList onEdit={editBookById} books={books} onDelete={deleteBookById} />
       <BookCreate onCreate={createBook} />
     </div>
   );
