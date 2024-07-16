@@ -3,7 +3,7 @@ import BooksContext from "../context/books";
 
 function BookEdit({ book, onSubmit }) {
   const [title, setTitle] = useState(book.title);
-  const {editBookById} = useContext(BooksContext);
+  const { editBookById } = useContext(BooksContext);
 
   const handleChange = (event) => {
     setTitle(event.target.value);
